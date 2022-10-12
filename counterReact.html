@@ -9,9 +9,15 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     const App = () => {
+      const [counter, setCounter] = React.useState(0);
+      const onClick = () => {
+        // setCounter( counter + 1 );
+        setCounter((current)=>(current + 1));
+      };
       return(
         <div>
-          <h1>Super Converter</h1>
+          <h3>Total Clicks: {counter}</h3>
+          <button onClick={onClick}>Click me</button>
         </div>
       )
     }
