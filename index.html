@@ -5,18 +5,29 @@
   </body>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn( {banana} ) {
-      return <button style={{backgroundColor:"tomato", color:"white", padding: "10px 20px", border:0, borderRadius:10,}}>{banana}</button>
+    function Btn( {text, changeValue, fontSize} ) {
+      console.log(text);
+      return (
+        <button onClick={changeValue} style={{backgroundColor:"tomato", color:"white", padding: "10px 20px", border:0, borderRadius:10, fontSize,}}>{text}</button>
+      )
+    }
+    // memo - 바뀌지 않는 props는 리렌더링 하지 않게 해줌
+    const MemorizeBtn = React.memo(Btn);
+    // 받아오는 props의 유형 검사
+    MemorizeBtn.propTypes = {
+      text: PropTypes.string,
+      fontSize: PropTypes.number
     }
     const App = () => {
       const [value, setValue] = React.useState("Save Changes");
       const changeValue = () => setValue("Revert Changes");
       return(
         <div>
-          <Btn banana={value} onClick={changeValue} />
-          <Btn banana="Continue" />
+          <MemorizeBtn text={value} fontSize={18} changeValue={changeValue} />
+          <MemorizeBtn text={14} fontSize={"COntinue"} />
         </div>
       )
     }
